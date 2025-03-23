@@ -1,0 +1,118 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шаблон</title>
+    <link rel="stylesheet" href="/static/css/learn.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            background-color: #fff; /* Цвет фона хедера */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень для хедера */
+        }
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+        }
+        .header-left img {
+            margin-right: 10px;
+        }
+        .header-right {
+            margin-right: 20px; /* Отступ от правой части навбара */
+        }
+        .header-right a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            margin-top: 20px; /* Немного отступа после хедера */
+        }
+        .left-column {
+            width: 25%;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .right-column {
+            width: 75%;
+            padding: 20px;
+        }
+        .description {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .header-title {
+            font-size: 1.5em; /* Уменьшаем размер текста заголовка */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img src="/static/image/author.png" alt="Logo">
+            <img src="/static/image/telegram2.png" alt="Telegram">
+        </div>
+        <div class="header-title">EXAM APPROVED</div>
+        <div class="header-right">
+            <a href="{% url 'learn:main' %}">СОВЕТЫ</a>
+            <a href="{% url 'learn:questions_from_exams' %}">ВОПРОСЫ С ЭКЗАМЕНОВ</a>
+            <a href="{% url 'learn:video_guides' %}">ВИДЕО ГАЙДЫ</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left-column">
+            <ul>
+                {% for item in video_guides %}
+                    <li>
+                        <a href="#" onclick="showDescription(event, '{{ item.pk }}')">{{ item.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="right-column">
+            {% for item in video_guides %}
+                <div id="description-{{ item.pk }}" class="description">
+                    <h2>{{ item.title }}</h2>
+                    <p>{{ item.url_on_video }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function showDescription(event, id) {
+            // Предотвращаем стандартное поведение ссылки
+            event.preventDefault();
+
+            // Скрываем все описания
+            const descriptions = document.querySelectorAll('.description');
+            descriptions.forEach(desc => desc.classList.remove('active'));
+
+            // Показываем выбранное описание
+            const selectedDescription = document.getElementById('description-' + id);
+            if (selectedDescription) {
+                selectedDescription.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

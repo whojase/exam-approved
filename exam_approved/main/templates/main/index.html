@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img src="/static/image/author.png" alt="Logo">
+            <img src="/static/image/telegram2.png" alt="Telegram">
+        </div>
+        <div class="header-title">EXAM APPROVED</div>
+        <div class="header-right">
+            <a href="{% url 'learn:main' %}">СОВЕТЫ</a>
+            <a href="{% url 'learn:questions_from_exams' %}">ВОПРОСЫ С ЭКЗАМЕНОВ</a>
+            <a href="{% url 'learn:video_guides' %}">ВИДЕО ГАЙДЫ</a>
+        </div>
+    </div>
+    <div class="main">
+        <h1>LET’S GO DUSHNIT</h1>
+        <a href="{% url 'learn:main' %}"><button class="button">START LEARNING</button></a>
+    </div>
+</body>
+</html>
